@@ -60,7 +60,7 @@ export default function Footer() {
           <ul className="space-y-2 text-gray-400">
             <li>
               <span onClick={project} className="cursor-pointer hover:text-yellow-500 transition-colors">
-                Gym Management
+                EduuXpert Website
               </span>
             </li>
             <li>

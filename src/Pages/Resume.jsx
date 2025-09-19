@@ -1,142 +1,83 @@
-import React, { useRef } from "react";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Download } from "lucide-react";
-import { toPng } from "html-to-image";
-import jsPDF from "jspdf";
 
-export default function Resume() {
-    const resumeRef = useRef();
+function Resume() {
+  const [width, setWidth] = useState(window.innerWidth);
 
-    // PNG Download
-    const downloadPNG = async () => {
-        if (!resumeRef.current) return;
-        const dataUrl = await toPng(resumeRef.current);
-        const link = document.createElement("a");
-        link.href = dataUrl;
-        link.download = "resume.png";
-        link.click();
-    };
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-    // PDF Download
-    const downloadPDF = async () => {
-        if (!resumeRef.current) return;
-        const dataUrl = await toPng(resumeRef.current);
-        const pdf = new jsPDF("p", "mm", "a4");
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = pdf.internal.pageSize.getHeight();
-        pdf.addImage(dataUrl, "PNG", 0, 0, pdfWidth, pdfHeight);
-        pdf.save("NiteshResume.pdf");
-    };
-
-
-
-    return (
-        <div
-            className="min-h-screen py-10 px-6 flex flex-col items-center "
-            style={{ backgroundColor: "rgba(172, 219, 251, 0.5)" }}
+  return (
+    <section className="relative w-full min-h-screen bg-gradient-to-br from-[#ACDBFB]/70 via-white to-[#ACDBFB]/40 pt-24">
+      <div className="max-w-5xl mx-auto px-6 py-16 flex flex-col items-center text-center">
+        {/* Heading */}
+        <motion.h2
+          initial={{ opacity: 0, y: -40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent"
         >
+          My Resume
+        </motion.h2>
 
-            <h1 className="text-4xl font-bold text-gray-800 mb-6">My Resume</h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="text-gray-600 mb-10 max-w-2xl leading-relaxed"
+        >
+          A glimpse of my professional journey. You can explore it directly below or download a copy
+          for later.
+        </motion.p>
 
-            {/* Buttons */}
-            <div className="flex gap-4 mb-6">
-                <button
-                    onClick={downloadPNG}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-                >
-                    <Download size={18} /> Download PNG
-                </button>
-                <button
-                    onClick={downloadPDF}
-                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-                >
-                    <Download size={18} /> Download PDF
-                </button>
-            </div>
+        {/* Download Button */}
+        <motion.a
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          href="/Amajad Ansari Resume.pdf"
+          download="Amajad_Ansari_Resume.pdf"
+          className="mb-10 inline-flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-white 
+                     bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500  shadow-md transition-transform transform hover:scale-105"
+        >
+          <Download className="w-5 h-5" /> Download CV
+        </motion.a>
 
-            {/* Resume Preview */}
-            <div
-                ref={resumeRef}
-                className="bg-white w-full max-w-3xl shadow-xl rounded-lg p-8 text-gray-800"
-            >
-                {/* Header */}
-                <div className="border-b pb-4 mb-4 text-center">
-                    <h2 className="text-3xl font-bold">Nitesh Gupta</h2>
-                    <p className="text-gray-600 font-semibold">Full-Stack Developer</p>
-                    <div className="flex flex-wrap gap-4 text-sm text-gray-500">
-                        <span >Email: niteshgupta@gmail.com</span>
-                        <span>Phone: +91 8808824412</span>
-                        <span>Github: CodeWithNitesh7</span>
-                        <span>Linkdin: Nitesh Gupta</span>
-                    </div>
-                </div>
+        {/* Resume Viewer */}
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="w-full bg-white/30 backdrop-blur-md rounded-2xl shadow-2xl overflow-hidden border border-white/40"
+        >
+          <iframe
+            src="/Amajad Ansari Resume.pdf"
+            title="Resume"
+            width="100%"
+            height={width > 786 ? "850px" : "600px"}
+            className="rounded-2xl"
+          ></iframe>
+        </motion.div>
+      </div>
 
-                {/* About Me */}
-                <div className="mb-6">
-                    <h3 className="text-xl font-semibold border-b pb-2 mb-3">
-                        About me
-                    </h3>
-
-                    <p className="text-gray-600">I am <b> Nitesh Gupta</b>, a passionate <b>Full-Stack Developer</b> with strong skills
-                        in <b>MERN stack</b>, <b>Java</b>,
-                        <b> Spring Boot</b>, and <b>Flutter</b>.
-                        I enjoy building scalable web applications, interactive UIs, and real-world projects that solve practical problems.</p>
-                </div>
-                {/* Education */}
-                <div className="mb-6">
-                    <h3 className="text-xl font-semibold border-b pb-2 mb-3">
-                        Education
-                    </h3>
-                    <p className="font-medium">Diploma in Computer Science</p>
-                    <p className="text-gray-600">MMIT Santkabirnagar College • 2022 - 2025</p>
-
-                    <p className="font-medium">HighSchool</p>
-                    <p className="text-gray-600">Jyoti Inter Collage Gorakhpur • 2021-2022</p>
-                </div>
-
-                {/* Skills */}
-                <div className="mb-6">
-                    <h3 className="text-xl font-semibold border-b pb-2 mb-3">Skills</h3>
-                    <ul className="grid grid-cols-2 gap-2">
-                        <li>HTML / CSS</li>
-                        <li>JavaScript</li>
-                        <li>BootStrap</li>
-                        <li>Tailwindcss</li>
-                        <li>Mern Stack</li>
-                        <li>Electron.Js</li>
-                        <li>Java With Springboot</li>
-                        <li>Python</li>
-                        <li>Flutter</li>
-                        <li>Git & GitHub</li>
-                    </ul>
-                </div>
-
-                {/* Projects */}
-                <div className="mb-6">
-                    <h3 className="text-xl font-semibold border-b pb-2 mb-3">Major Projects</h3>
-                    <ul className="list-disc pl-6 space-y-2">
-                        <li>
-                            <span className="font-medium">Gym Management System</span> — Multi-tenant gym software built using MERN stack.
-                        </li>
-                        <li>
-                            <span className="font-medium">Quiz App</span> — Login-based quiz platform with admin dashboard.
-                        </li>
-                        <li>
-                            <span className="font-medium">Portfolio Website</span> — Personal portfolio showcasing projects and skills.
-                        </li>
-                    </ul>
-                </div>
-
-                {/* Experience */}
-                <div>
-                    <h3 className="text-xl font-semibold border-b pb-2 mb-3">
-                        Experience
-                    </h3>
-                    <p className="font-medium">Full Stack Developer (Intern)</p>
-                    <p className="text-gray-600">Asv Consulting Services • 2025</p>
-                    <p className="font-medium">Full Stack Engineer (Trainee)</p>
-                    <p className="text-gray-600">Techpile Technology• Aug-2024</p>
-                </div>
-            </div>
-        </div>
-    );
+      {/* Floating Download Button (for mobile convenience) */}
+      <motion.a
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.6 }}
+        href="/Amajad Ansari Resume.pdf"
+        download="Amajad_Ansari_Resume.pdf"
+        className="fixed bottom-6 right-6 p-4 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 
+                   text-white shadow-lg hover:scale-110 transition-transform duration-300"
+      >
+        <Download className="w-6 h-6" />
+      </motion.a>
+    </section>
+  );
 }
+
+export default Resume;

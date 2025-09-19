@@ -4,27 +4,104 @@ import { motion } from "framer-motion";
 
 const projects = [
   {
-    title: "Gym Management System",
+    title: "EduuXpert Website",
     description:
-      "A multi-tenant gym management software built with the MERN stack. Includes membership plans, attendance, and admin dashboard.",
-    image:
-      "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD...", // your base64 / image
-    github: "https://github.com/yourusername/gym-management",
-    live: "https://gym-management-demo.vercel.app",
+      "An educational platform website designed for learning resources, student engagement, and responsive UI.",
+    image: "/eduuXpert.jpg",
+    github: "https://github.com/amajad786/EduuXpert_website",
+    live: "https://eduuxpert.com/",
+    tech: ["React", "Tailwind CSS"],
   },
   {
-    title: "E-Commerce Website",
+    title: "ShivSumitra Foundation NGO Website",
     description:
-      "Full-featured multi-vendor e-commerce platform with authentication, cart, payments, and seller dashboard.",
-    image: "https://source.unsplash.com/800x600/?ecommerce,shopping",
-    github: "https://github.com/yourusername/ecommerce",
-    live: "https://ecommerce-demo.vercel.app",
+      "An NGO website for ShivSumitra Foundation highlighting mission, projects, donations, and community service.",
+    image: "/ngo.png",
+    github: "https://github.com/amajad786/ngo_app",
+    live: "https://shivsumitra-foundation.vercel.app",
+    tech: ["React", "Tailwind CSS"],
+  },
+  {
+    title: "Portfolio Website",
+    description:
+      "Personal portfolio showcasing projects, skills, and professional experience with animations and responsive design.",
+    image: "/CodexAmajad.png",
+    github: "https://github.com/amajad786/CodexAmajad",
+    live: "https://codexamajad.vercel.app/",
+    tech: ["React", "Tailwind CSS"],
+  },
+  {
+    title: "Quiz App",
+    description:
+      "A quiz application with authentication, timer, and score calculation. Built with React and Node.js.",
+    image: "/quiz.png",
+    github: "https://github.com/amajad786/quiz-app",
+    live: "https://quiz-app-demo.vercel.app",
+    tech: ["React", "Node.js", "MySQL", "Express"],
+  },
+  // {
+  //   title: "Faste E-Commerce Frontend",
+  //   description:
+  //     "Frontend design for a multi-vendor e-commerce platform with modern UI and responsive product listings.",
+  //   image: "https://source.unsplash.com/800x600/?ecommerce,shopping",
+  //   github: "https://github.com/yourusername/faste-ecommerce",
+  //   live: "https://faste-ecommerce.vercel.app",
+  //   tech: ["React", "Tailwind CSS"],
+  // },
+  {
+    title: "Netflix Website Clone",
+    description:
+      "A Netflix-inspired website clone featuring movies, TV shows, and video streaming UI.",
+    image: "/Netflix.png",
+    github: "https://github.com/amajad786/netflix-project",
+    live: "https://netflix-clone-demo.vercel.app",
+    tech: ["HTML", "CSS", "JavaScript"],
+  },
+  {
+    title: "Music Application",
+    description:
+      "A music streaming web app with playlists, search functionality, and responsive player UI.",
+    image: "/music.png",
+    github: "https://github.com/amajad786/music_app",
+    live: "https://music-app-demo.vercel.app",
+    tech: ["HTML", "CSS", "JavaScript"],
+  },
+  {
+    title: "Calorie Kitchen  Website",
+    description:
+      "A website to calculate daily calorie intake from kitchen recipes with a modern and simple UI.",
+    image: "/Calorie-Kitchen.png",
+    github: "https://github.com/amajad786/html-project",
+    live: "https://kitchen-calorie.vercel.app",
+    tech: ["HTML", "CSS", "JavaScript", "Bootstrap", "jQuery"],
+  },
+  {
+    title: "TechTheme",
+    description:
+      "A modern website theme showcasing technology blogs, news, and resources with a professional design.",
+    image: "/techtheme.png",
+    github: "https://github.com/amajad786/techtheme",
+    live: "https://aiyoit.com/",
+    tech: ["HTML", "CSS", "Bootstrap", "Core PHP" , "MySQL", "WordPress"],
+  },
+  {
+    title: "Aiyoit Website",
+    description:
+      "A business website designed for Aiyoit company with professional sections, services, and contact details.",
+    image: "/aiyoit.png",
+    github: "https://github.com/amajad786/project-1",
+    live: "https://aiyoit.vercel.app",
+    tech: ["HTML", "CSS", "JavaScript", "Bootstrap"],
   },
 ];
 
+
 export default function Projects() {
   return (
-    <section id="projects" className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20 px-6 sm:px-12">
+    <section
+      id="projects"
+      className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20 px-6 sm:px-12"
+    >
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -35,6 +112,7 @@ export default function Projects() {
         🚀 My Projects
       </motion.h2>
 
+      {/* Project Cards */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
         {projects.map((project, idx) => (
           <motion.div
@@ -50,7 +128,7 @@ export default function Projects() {
               <img
                 src={project.image}
                 alt={project.title}
-                className="w-full h-full object-cover transform group-hover:scale-110 transition duration-700"
+                className="w-full h-auto  transform group-hover:scale-110 transition duration-700"
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition duration-500 flex items-center justify-center gap-4">
                 <a
@@ -80,6 +158,16 @@ export default function Projects() {
               <p className="text-gray-600 mt-2 text-sm leading-relaxed">
                 {project.description}
               </p>
+              <div className="flex flex-wrap gap-2 mt-3">
+                {project.tech.map((t, i) => (
+                  <span
+                    key={i}
+                    className="px-2 py-1 bg-blue-100 text-blue-600 text-xs rounded-lg"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
             </div>
           </motion.div>
         ))}

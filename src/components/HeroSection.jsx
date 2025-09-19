@@ -1,7 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+
 
 export default function HeroSection() {
+ const navigate = useNavigate();
+  const phone = "+919695345078"; // replace with target number (country code + number, but WITHOUT +)
+  const message = "Hello! I want to know about."; // custom message
+
+  const openWhatsApp = () => {
+    const encoded = encodeURIComponent(message);
+    const url = `https://wa.me/${phone}?text=${encoded}`;
+    // open in new tab/window safely
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   const texts = [
     "Frontend Developer",
     "React.js Developer",
@@ -40,7 +53,7 @@ export default function HeroSection() {
   }, [subIndex, index, reverse]);
 
   return (
-    <div className="relative bg-gradient-to-br from-[#ACDBFB]/60 via-white to-white md:min-h-screen flex flex-col-reverse sm:flex-row items-center px-4 sm:px-12 py-10 sm:py-20 gap-8 sm:gap-12 overflow-hidden">
+    <div className="relative bg-gradient-to-br from-[#ACDBFB]/60 via-white to-white md:min-h-screen flex flex-col-reverse sm:flex-row items-center px-4 sm:px-12 py-20 gap-8 sm:gap-12 overflow-hidden">
       {/* Decorative background shapes */}
       <div className="absolute top-10 left-10 w-40 h-40 bg-cyan-300 rounded-full blur-3xl opacity-30 animate-pulse"></div>
       <div className="absolute bottom-20 right-20 w-56 h-56 bg-cyan-500 rounded-full blur-3xl opacity-20 animate-bounce"></div>
@@ -77,15 +90,15 @@ export default function HeroSection() {
         <div className="flex gap-4 justify-center sm:justify-start mt-4">
           <motion.a
             whileHover={{ scale: 1.05 }}
-            href="#projects"
-            className="px-5 py-2 rounded-full bg-cyan-600 text-white font-semibold shadow-md hover:bg-cyan-700 transition"
+            onClick={()=>navigate("/projects")}
+            className="cursor-pointer px-5 py-2 rounded-full bg-cyan-600 text-white font-semibold shadow-md hover:bg-cyan-700 transition"
           >
             View Projects
           </motion.a>
           <motion.a
             whileHover={{ scale: 1.05 }}
-            href="#contact"
-            className="px-5 py-2 rounded-full bg-white border border-cyan-600 text-cyan-600 font-semibold shadow-md hover:bg-cyan-50 transition"
+            onClick={openWhatsApp}
+            className="cursor-pointer px-5 py-2 rounded-full bg-white border border-cyan-600 text-cyan-600 font-semibold shadow-md hover:bg-cyan-50 transition"
           >
             Contact Me
           </motion.a>

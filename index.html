@@ -1,16 +1,129 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png+xml" href="/favi.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodexAmajad</title>
+    <style>
+      /* Loader container */
+      #loader {
+        position: fixed;
+        inset: 0;
+        background: #0a1a2f;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        overflow: hidden;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/png+xml" href="/favi.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CodexAmajad</title>
-</head>
+      /* Logo animation */
+      #loader img {
+        width: 80px;
+        height: auto;
+        margin-bottom: 25px;
+        animation: logoPulse 1.8s infinite ease-in-out;
+        filter: drop-shadow(0 0 10px #00d4ff);
+      }
 
-<body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.jsx"></script>
-</body>
+      @keyframes logoPulse {
+        0% {
+          transform: scale(1);
+          opacity: 0.9;
+        }
+        50% {
+          transform: scale(1.15);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 0.9;
+        }
+      }
 
+      /* Dots animation */
+      .dots {
+        display: flex;
+        gap: 10px;
+      }
+
+      .dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #00d4ff;
+        animation: pulse 1.2s infinite ease-in-out;
+      }
+
+      .dot:nth-child(1) {
+        animation-delay: 0s;
+      }
+      .dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(0.8);
+          opacity: 0.6;
+          background-color: #00d4ff;
+        }
+        50% {
+          transform: scale(1.2);
+          opacity: 1;
+          background-color: #1affd5;
+        }
+        100% {
+          transform: scale(0.8);
+          opacity: 0.6;
+          background-color: #00d4ff;
+        }
+      }
+
+      /* Background gradient shimmer */
+      @keyframes bgFlash {
+        0% {
+          background-color: #0a1a2f;
+        }
+        100% {
+          background-color: #162d50;
+        }
+      }
+      #loader {
+        animation: bgFlash 2.5s infinite alternate;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Loader -->
+    <div id="loader">
+      <img src="/favi.png" alt="Logo" />
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    </div>
+
+    <!-- React root -->
+    <div id="root"></div>
+
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      // Remove loader when React app is ready
+      window.addEventListener("load", () => {
+        const loader = document.getElementById("loader");
+        if (loader) {
+          loader.style.opacity = "0";
+          loader.style.transition = "opacity 0.7s ease";
+          setTimeout(() => loader.remove(), 0);
+        }
+      });
+    </script>
+  </body>
 </html>
