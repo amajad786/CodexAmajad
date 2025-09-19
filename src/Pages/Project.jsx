@@ -18,7 +18,7 @@ const projects = [
       "An NGO website for ShivSumitra Foundation highlighting mission, projects, donations, and community service.",
     image: "/ngo.png",
     github: "https://github.com/amajad786/ngo_app",
-    live: "https://shivsumitra-foundation.vercel.app",
+    live: "",
     tech: ["React", "Tailwind CSS"],
   },
   {
