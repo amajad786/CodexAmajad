@@ -19,10 +19,10 @@ export default function HeroSection() {
     "Frontend Developer",
     "React.js Developer",
     "Angular.js Developer",
-    "UI/UX Enthusiast",
     "Creative Web Designer",
     "Responsive Design Expert",
     "Freelancer",
+   "Full Stack Developer"
   ];
 
   const [index, setIndex] = useState(0);
